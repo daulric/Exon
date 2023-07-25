@@ -1,6 +1,6 @@
 [package]
 name = "daulric/dabox"
-version = "0.0.2"
+version = "0.0.3"
 description = "a collection of packages made and maintained by daulric"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
@@ -16,7 +16,7 @@ retract = "daulric/retract@0.0.21"
 rodb = "daulric/rodb@0.0.6"
 
 # Fission
-fission = "daulric/fission@0.1.3"
+fission = "daulric/fission@0.1.4"
 
 # RedNet
 rednet = "daulric/rednet@0.0.1"
