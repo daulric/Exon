@@ -2,7 +2,7 @@
 
 A collection of packages made and maintained by daulric.
 
-Add `daulric/dabox@<version>` and then,
+Add `dabox = daulric/dabox@<version>` and then,
 Use `wally install` to install the packages.
 
 See [wally](https://wally.run/package/daulric/dabox) for the latest version!
