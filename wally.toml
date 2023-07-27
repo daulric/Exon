@@ -1,13 +1,13 @@
 [package]
 name = "daulric/dabox"
-version = "0.0.6"
+version = "0.0.7"
 description = "a collection of packages made and maintained by daulric"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
 [dependencies]
 # OneFrame
-oneframe = "daulric/oneframe@1.0.7"
+oneframe = "daulric/oneframe@1.0.8"
 
 # Retract
 retract = "daulric/retract@0.0.22"
