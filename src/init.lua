@@ -1,7 +1,7 @@
 
 local dabox = {
 
-    oneframe = script:WaitForChild("oneframe"),
+    oneframe = require(script:WaitForChild("oneframe")),
     rednet = require(script:WaitForChild("rednet")),
     fission = require(script:WaitForChild("fission")),
     retract = require(script:WaitForChild("retract")),
