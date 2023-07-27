@@ -1,12 +1,11 @@
-local Package = script.Parent
 
 local dabox = {
 
-    oneframe = require(Package:WaitForChild("oneframe")),
-    rednet = require(Package:WaitForChild("rednet")),
-    fission = require(Package:WaitForChild("fission")),
-    retract = require(Package:WaitForChild("retract")),
-    rodb = require(Package:WaitForChild("rodb")),
+    oneframe = script:WaitForChild("oneframe"),
+    rednet = require(script:WaitForChild("rednet")),
+    fission = require(script:WaitForChild("fission")),
+    retract = require(script:WaitForChild("retract")),
+    rodb = require(script:WaitForChild("rodb")),
 
 }
 

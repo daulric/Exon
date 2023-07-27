@@ -1,1 +1,1 @@
-print("Hello world, from server!")
+require(game.ReplicatedStorage.dabox)

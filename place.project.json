@@ -4,8 +4,9 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
+
       "Shared": {
-        "$path": "src/shared"
+        "$path": "model/shared"
       },
 
       "dabox": {
@@ -15,14 +16,14 @@
 
     "ServerScriptService": {
       "Server": {
-        "$path": "src/server"
+        "$path": "model/server"
       }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "Client": {
-          "$path": "src/client"
+          "$path": "model/client"
         }
       }
     }
