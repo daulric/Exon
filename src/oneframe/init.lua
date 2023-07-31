@@ -28,6 +28,7 @@ local OneFrame = {
 
 	-- Utilites!
 	createCleany = Cleany.create,
+	Settings = require(script:WaitForChild("Settings"))
 }
 
 compile(OneFrame)
