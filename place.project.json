@@ -1,5 +1,5 @@
 {
-  "name": "dabox",
+  "name": "devbox",
   "tree": {
     "$className": "DataModel",
 
@@ -9,7 +9,7 @@
         "$path": "model/shared"
       },
 
-      "dabox": {
+      "devbox": {
         "$path": "src"
       }
     },
