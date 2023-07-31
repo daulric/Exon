@@ -8,8 +8,7 @@ local Framework = require(script:WaitForChild("Framework"))
 local Controllers = require(script:WaitForChild("Controllers"))
 local Component = require(script:WaitForChild("Component"))
 
-local Packages = script:WaitForChild("Packages")
-local Promise = require(Packages.Promise)
+local Promise = require(Tools:WaitForChild("Promise"))
 
 local Services = {
 	Input = require(Service:WaitForChild("Input")),

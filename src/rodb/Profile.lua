@@ -1,4 +1,5 @@
 local PlayerDataStore = {}
+local internalmessage = require(script.Parent:WaitForChild("internalmessage"))
 
 function PlayerDataStore:SaveData(mainIndex, RootDB)
 
@@ -10,8 +11,8 @@ function PlayerDataStore:SaveData(mainIndex, RootDB)
             RootDB:SaveData(mainIndex, mainIndex.player.UserId)
         end)
 
-        assert(success, `<failed to store data in {mainIndex.name}> : {err}`)
-        print(`<successfully saved data in {mainIndex.name}>`)
+        assert(success,internalmessage.databaseSaveFail(mainIndex.name, mainIndex.player.Name, err))
+        print(internalmessage.databaseSaveSuccess(mainIndex.name, mainIndex.player.Name))
     end
 end
 
@@ -23,8 +24,8 @@ function PlayerDataStore:GetData(mainIndex, RootDB)
             RootDB:GetData(mainIndex, mainIndex.player.UserId)
         end)
 
-        assert(success, `<failed to retrieve data from {mainIndex.name}> : {err} `)
-        print(`<successfully retrieved data from {mainIndex.name}`)
+        assert(success, internalmessage.databaseRetrieveFail(mainIndex.name, mainIndex.player.Name, err))
+        print(internalmessage.databaseRetrieveSuccess(mainIndex.name, mainIndex.player.Name))
     end
 end
 

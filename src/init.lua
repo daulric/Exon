@@ -1,5 +1,4 @@
-
-local dabox = {
+local devbox = {
 
     oneframe = require(script:WaitForChild("oneframe")),
     rednet = require(script:WaitForChild("rednet")),
@@ -9,9 +8,4 @@ local dabox = {
 
 }
 
-function dabox:GetModule(name)
-    assert(name ~= "GetModule", `can't return module with this method; {name}`)
-    return dabox[name]
-end
-
-return dabox
+return devbox

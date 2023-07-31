@@ -1,5 +1,7 @@
 local GeneralDB = {}
 
+local internalmessage = require(script.Parent:WaitForChild("internalmessage"))
+
 function GeneralDB:SaveData(mainIndex, RootDB)
     assert(type(mainIndex.isGeneral) == "userdata", `<cannot save data without proper configuration>`)
 
@@ -8,8 +10,8 @@ function GeneralDB:SaveData(mainIndex, RootDB)
             RootDB:SaveData(mainIndex, mainIndex.id)
         end)
 
-        assert(success, `<failed to store data in {mainIndex.name}> : {err}`)
-        print(`<successfully stored data in {mainIndex.name}>`)
+        assert(success, internalmessage.databaseSaveFail(mainIndex.name, mainIndex.id, err))
+        print(internalmessage.databaseSaveSuccess(mainIndex.name, mainIndex.id))
     end
 
 end
@@ -22,7 +24,8 @@ function GeneralDB:GetData(mainIndex, RootDB)
             RootDB:GetData(mainIndex, mainIndex.id)
         end)
 
-        assert(success, `<cannot get retrieve data from {mainIndex.name}> : {err}`)
+        assert(success, internalmessage.databaseRetrieveFail(mainIndex.name, mainIndex.id, err))
+        print(internalmessage.databaseRetrieveSuccess(mainIndex.name, mainIndex.id))
     end
 
 end

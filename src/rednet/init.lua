@@ -14,10 +14,6 @@ end
 
 local Listeners = {}
 
-function doNothing(...)
-    return ...
-end
-
 function ProccessData(id: string, ... : any)
 
     local tempData = {

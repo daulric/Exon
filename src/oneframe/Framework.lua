@@ -7,9 +7,10 @@ export type Framework = {
 	name: string
 } | (...any) -> ()
 
-local Packages = script.Parent:WaitForChild("Packages")
+local Tools = script.Parent:WaitForChild("Tools")
+local Promise = require(Tools:WaitForChild("Promise"))
 
-local Promise = require(Packages:WaitForChild("Promise"))
+local Settings = require(script.Parent:WaitForChild("Settings"))
 
 local RunService = game:GetService("RunService")
 
@@ -140,27 +141,27 @@ function MakeAjustment(v, ignorePrint, ...)
 
 end
 
-function InitFolder(Folder: Instance, ignorePrint, ...: any)
+function InitFolder(Folder: Instance, ...: any)
 	for _, v in ipairs(Folder:GetDescendants()) do
 		if v:IsA("ModuleScript") then
-			task.spawn(MakeAjustment, v, ignorePrint, ...)
+			task.spawn(MakeAjustment, v, Settings.ignorePrint, ...)
 		end
 	end
 end
 
-function InitTable(Table, ignorePrint, ...)
+function InitTable(Table, ...)
 	for _, Instances in pairs(Table) do
-		if typeof(Instances) == "Instance" then 
-			InitFolder(Instances, ignorePrint, ...)
-		elseif typeof(Instances) == "table" then 
-			InitTable(Instances, ignorePrint, ...)
+		if typeof(Instances) == "Instance" then
+			InitFolder(Instances, ...)
+		elseif typeof(Instances) == "table" then
+			InitTable(Instances, ...)
 		end
 	end
 end
 
 type folder = Instance | {[any]: any}
 
-function Framework(Folder: Instance, ignorePrint: boolean?, ...: any)
+function Framework(Folder: Instance, ignorePrint, ...: any)
 	local Start = os.time()
 
 	local items = {...}
@@ -168,10 +169,10 @@ function Framework(Folder: Instance, ignorePrint: boolean?, ...: any)
 
 	local Success = Promise.new(function(resolve, reject)
 		if typeof(Folder) == "Instance" then
-			InitFolder(Folder, ignorePrint, unpack(items, 1, count))
+			InitFolder(Folder, unpack(items, 1, count))
 			resolve(items)
 		elseif typeof(Folder) == "table" then
-			InitTable(Folder, ignorePrint, unpack(items, 1, count))
+			InitTable(Folder, unpack(items, 1, count))
 			resolve(items)
 		else
 			reject(items)
@@ -179,10 +180,12 @@ function Framework(Folder: Instance, ignorePrint: boolean?, ...: any)
 
 	end)
 
-	if ignorePrint == nil or ignorePrint == false then
-		local Finished = os.time() - Start
-		print(`{Folder.Name} took {Finished} seconds to load!`)
-	end
+	Success:andThen(function()
+		if Settings.ignorePrint == nil or Settings.ignorePrint == false then
+			local Finished = os.time() - Start
+			print(`{Folder.Name} took {Finished} seconds to load!`)
+		end
+	end)
 
 	return Success
 end
