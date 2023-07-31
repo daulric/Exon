@@ -161,7 +161,7 @@ end
 
 type folder = Instance | {[any]: any}
 
-function Framework(Folder: Instance, ignorePrint, ...: any)
+function Framework(Folder: Instance, ...: any)
 	local Start = os.time()
 
 	local items = {...}
