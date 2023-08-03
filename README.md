@@ -11,5 +11,5 @@ The package contains:
 - [Retract](./src/retract/) - a declarative Lua UI Library for Roblox.
 - [OneFrame](./src/oneframe/) - a module for running modular code under one server/client.
 - [Fission](./src/fission/) - a module for creating reactive uis.
-- [RedNet](./src/rednet/) - a networking module creating a safe and secure passage for data on the server or client side.
+- [RedNet](./src/rednet/) - a networking module for creating a safe and secure passage for data on the server or client side.
 - [RoDB](./src/rodb/) - a database service for safely storing data.
