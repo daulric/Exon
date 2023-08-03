@@ -7,6 +7,7 @@ local data = require(markers:WaitForChild("data"))
 
 local createElement = require(nodes:WaitForChild("createElement"))
 local createFragment = require(nodes:WaitForChild("createFragment"))
+local createContext = require(nodes:WaitForChild("createContext"))
 local ComponentAspect = require(script:WaitForChild("Component"))
 
 -- Reconciler v2
@@ -23,6 +24,7 @@ local Retract = {
 
     createElement = createElement,
     createFragment = createFragment,
+    createContext = createContext,
 
     --// Event, Property, and Attribute Signals
     Change = data.Change,
