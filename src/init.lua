@@ -6,6 +6,7 @@ local devbox = {
     retract = require(script:WaitForChild("retract")),
     rodb = require(script:WaitForChild("rodb")),
 
+    controllers = require(script:WaitForChild("controllers"))
 }
 
 return devbox
