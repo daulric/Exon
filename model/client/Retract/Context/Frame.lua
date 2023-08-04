@@ -14,6 +14,7 @@ return function (props)
                 Text = retract.createElement("TextLabel", {
                     Size = UDim2.fromScale(0.4, 0.3),
                     Position = UDim2.new(0.5, 0, 0.5,0),
+                    AnchorPoint = Vector2.new(0.5, 0.5),
                     TextColor3 = theme.foreground,
                     BackgroundTransparency = 1,
                     TextScaled = true,
