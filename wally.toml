@@ -1,6 +1,6 @@
 [package]
 name = "daulric/devbox"
-version = "0.0.10"
+version = "0.0.11"
 description = "a collection of packages made and maintained by daulric"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"

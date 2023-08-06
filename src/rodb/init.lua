@@ -6,6 +6,12 @@ local unknownIndex = 0
 local Symbol = require(script:WaitForChild("Symbol"))
 
 local DataBaseService = game:GetService("DataStoreService")
+local RunService = game:GetService("RunService")
+local RoDBRegistry
+
+if RunService:IsServer() then
+    RoDBRegistry = DataBaseService:GetDataStore("RoDB Database Registry")
+end
 
 -- Different Services
 local ProfileModule = require(script:WaitForChild("Profile"))
@@ -51,6 +57,19 @@ function RoDB.create(name: string?, scope: Player | any?, template: Template?)
         Database.data[i] = v
     end
 
+    RoDBRegistry:UpdateAsync("Registry", function(oldData)
+        if oldData == nil then
+            oldData = {}
+        end
+
+        if not table.find(oldData, name) then
+            print("Inserting a NEw Database", name)
+            table.insert(oldData, name)
+        end
+
+        return oldData
+    end)
+
     return setmetatable(Database, RoDB)
 end
 
@@ -95,4 +114,27 @@ function RoDB:Retrieve()
 
 end
 
-return RoDB
+function RoDB:GetRegistry()
+    local Data = {}
+
+    RoDBRegistry:UpdateAsync("Registry", function(oldData)
+        if oldData == nil then
+            oldData = {}
+        end
+
+        for i, v in pairs(oldData) do
+            Data[i] = v
+        end
+
+        return oldData
+    end)
+
+    return table.freeze(Data)
+
+end
+
+if RunService:IsServer() then
+    return RoDB
+elseif RunService:IsClient() then
+    return {}
+end
