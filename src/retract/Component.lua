@@ -2,27 +2,9 @@ local markers = script.Parent:WaitForChild("markers")
 local ComponentLifecyclePhase = require(markers:WaitForChild("Lifecycle"))
 local Symbol = require(markers:WaitForChild("Symbol"))
 local ElementType = require(markers:WaitForChild("ElementType"))
+local assign = require(script.Parent:WaitForChild("assign"))
 
 local None = Symbol.assign("None")
-
-local function assign(target, ...)
-	for index = 1, select("#", ...) do
-		local source = select(index, ...)
-
-		if source ~= nil then
-			for key, value in pairs(source) do
-				if value == None then
-					target[key] = nil
-				else
-					target[key] = value
-				end
-			end
-		end
-
-	end
-
-	return target
-end
 
 local MAX_PENDING_UPDATES = 100
 

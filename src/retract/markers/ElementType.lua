@@ -18,7 +18,8 @@ local ElementKindType = {
     Fragment = Symbol.assign("Retract.Fragment"),
     Gateway = Symbol.assign("Retract.Gateway"),
     Element = Symbol.assign("Retract.Element"),
-    VirtualTree = Symbol.assign("Retract.VirtualTree")
+    VirtualTree = Symbol.assign("Retract.VirtualTree"),
+    Binding = Symbol.assign("Binding")
 }
 
 ElementTypeInternal.Types = ElementKindType
@@ -57,9 +58,12 @@ function ElementTypeInternal.typeof(element)
 end
 
 function ElementTypeInternal.of(element)
-    if element.Type then
-        return element.Type
+
+    if type(element) ~= "table" then
+        return nil
     end
+
+    return element.Type
 end
 
 function ElementTypeInternal.iterateElements(index)
