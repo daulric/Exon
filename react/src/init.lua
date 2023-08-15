@@ -21,7 +21,7 @@ local Reconciler = require(script:WaitForChild("Reconciler"))(renderer)
 -- \\ compile // --
 local freeze = require(script:WaitForChild("freeze"))
 
-local Retract = {
+local react = {
     mount = Reconciler.mountVirtualTree,
     unmount = Reconciler.unmountVirtualTree,
     update = Reconciler.updateVirtualTree,
@@ -47,5 +47,5 @@ local Retract = {
     Component = ComponentAspect,
 }
 
-freeze(Retract, "Retract")
-return Retract
+freeze(react, "react")
+return react

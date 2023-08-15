@@ -21,7 +21,7 @@ function createRef()
 			bind[key] = value
 		end,
 		__tostring = function(_self)
-			return ("Retract.Ref(%s)"):format(tostring(bind:getValue()))
+			return ("react.Ref(%s)"):format(tostring(bind:getValue()))
 		end,
     })
 

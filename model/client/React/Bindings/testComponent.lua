@@ -1,10 +1,10 @@
 local devbox = require(game.ReplicatedStorage.devbox)
-local retract = devbox.retract
+local react = devbox.react
 
-local testComp = retract.Component:extend("Test For Bindings")
+local testComp = react.Component:extend("Test For Bindings")
 
 function testComp:init()
-    self.textRef, self.updateCount = retract.createBinding(0)
+    self.textRef, self.updateCount = react.createBinding(0)
 end
 
 function testComp:didMount()
@@ -13,14 +13,14 @@ function testComp:didMount()
 end
 
 function testComp:render()
-    return retract.createElement("TextButton", {
+    return react.createElement("TextButton", {
         Name = "Binding Button",
         Position = UDim2.new(0.5, 0, 0.5, 0),
 
         Text = self.textRef:map(function(value)
             return "Types : "..tostring(value)
         end),
-        [retract.Event.MouseButton1Click] = function()
+        [react.Event.MouseButton1Click] = function()
             self.updateCount(self.textRef:getValue() + 1)
         end,
 

@@ -9,16 +9,16 @@ local Symbol = require(script.Parent.Symbol)
 local Gateway = require(script.Parent:WaitForChild("Gateway"))
 
 local ElementKindType = {
-    Host = Symbol.assign("Retract.Element.Host"),
-    Functional = Symbol.assign("Retract.Element.Function"),
-    StatefulComponent = Symbol.assign("Retract.Element.StatefulComponent"),
-    StatefulComponentInstance = Symbol.assign("Retract.Component.Instance"),
+    Host = Symbol.assign("react.Element.Host"),
+    Functional = Symbol.assign("react.Element.Function"),
+    StatefulComponent = Symbol.assign("react.Element.StatefulComponent"),
+    StatefulComponentInstance = Symbol.assign("react.Component.Instance"),
 
     --// Other Stuff
-    Fragment = Symbol.assign("Retract.Fragment"),
-    Gateway = Symbol.assign("Retract.Gateway"),
-    Element = Symbol.assign("Retract.Element"),
-    VirtualTree = Symbol.assign("Retract.VirtualTree"),
+    Fragment = Symbol.assign("react.Fragment"),
+    Gateway = Symbol.assign("react.Gateway"),
+    Element = Symbol.assign("react.Element"),
+    VirtualTree = Symbol.assign("react.VirtualTree"),
     Binding = Symbol.assign("Binding")
 }
 

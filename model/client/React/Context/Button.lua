@@ -1,14 +1,14 @@
 local devbox = require(game.ReplicatedStorage.devbox)
-local retract = devbox.retract
+local react = devbox.react
 
 local Theme = require(script.Parent:WaitForChild("Theme"))
 
 local signal = script.Parent:WaitForChild("Signal")
 
 return function (props)
-    return retract.createElement(Theme.Consumer, {
+    return react.createElement(Theme.Consumer, {
         render = function(theme)
-            return retract.createElement("TextButton", {
+            return react.createElement("TextButton", {
                 Name = "Context Frame",
                 Size = UDim2.fromScale(0.5, 0.5),
                 BackgroundColor3 = theme.background,
@@ -16,7 +16,7 @@ return function (props)
                 TextScaled = true,
                 TextColor3 = theme.foreground,
 
-                [retract.Event.MouseButton1Click] = function()
+                [react.Event.MouseButton1Click] = function()
                     signal:Fire()
                 end
             })
