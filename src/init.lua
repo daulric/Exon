@@ -10,6 +10,9 @@ local devbox = {
 
     controllers = require(script:WaitForChild("controllers")),
     util = require(script:WaitForChild("util")),
+
+    -- Hooks For Certain Modules,
+    createReactHook = require(script:WaitForChild("createReactHook")),
 }
 
 export type devbox = typeof(devbox)

@@ -29,6 +29,10 @@
 
         "oneframe": {
             "$path": "oneframe/default.project.json"
+        },
+
+        "createReactHook": {
+            "$path": "react/hooks.project.json"
         }
     }
 }
