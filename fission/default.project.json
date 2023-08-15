@@ -1,0 +1,6 @@
+{
+    "name": "fission",
+    "tree": {
+        "$path": "src/"
+    }
+}

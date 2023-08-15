@@ -10,7 +10,7 @@
       },
 
       "devbox": {
-        "$path": "src"
+        "$path": "default.project.json"
       }
     },
 

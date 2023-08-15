@@ -1,0 +1,6 @@
+{
+    "name": "retract",
+    "tree": {
+        "$path": "src/"
+    }
+}

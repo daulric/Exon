@@ -1,6 +1,30 @@
 {
     "name": "devbox",
     "tree": {
-        "$path": "src"
+        "$path": "src",
+
+        "controllers": {
+            "$path": "controllers/default.project.json"
+        },
+
+        "react": {
+            "$path": "react/default.project.json"
+        },
+
+        "rednet": {
+            "$path": "rednet/default.project.json"
+        },
+
+        "rodb": {
+            "$path": "rodb/default.project.json"
+        },
+
+        "util": {
+            "$path": "util/default.project.json"
+        },
+
+        "fission": {
+            "$path": "fission/default.project.json"
+        }
     }
 }

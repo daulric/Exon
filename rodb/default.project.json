@@ -1,0 +1,6 @@
+{
+    "name": "rodb",
+    "tree": {
+        "$path": "src/"
+    }
+}
