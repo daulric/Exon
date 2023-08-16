@@ -28,8 +28,13 @@ function createHooks(react, component)
     }
 end
 
+type Hooks = typeof(createHooks())
+type Props = {[any]: any}
+
+type render = (Props, Hooks) -> ()
+
 function createReactHook(react)
-    return function (render, options)
+    return function (render: render, options)
 
         assert(type(render) == "function", `hooked component have to be a function`)
 
@@ -52,7 +57,7 @@ function createReactHook(react)
                 )
             )
         end
-        
+
         component.defaultProps = options.defaultProps
         component.validateProps = options.validateProps
 

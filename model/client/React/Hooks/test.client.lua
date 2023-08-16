@@ -3,10 +3,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local devbox = require(ReplicatedStorage:WaitForChild("devbox"))
 
 local react = devbox.react
-local createReactHook = devbox.createReactHook(react)
+local createReactHook = devbox.createReactHook
 
-function Button(props, hooks)
-
+local button = createReactHook(function(props, hooks)
     local count, setCount = hooks.useState(0)
 
     hooks.useEffect(function()
@@ -24,9 +23,8 @@ function Button(props, hooks)
             setCount(count + 1)
         end,
     })
-end
 
-local button = createReactHook(Button)
+end)
 
 local element = react.createElement("ScreenGui", {
     Name = "React Hook Test",
@@ -34,5 +32,3 @@ local element = react.createElement("ScreenGui", {
 }, {
     Hook = react.createElement(button),
 })
-
-local handle = react.mount(element, Players.LocalPlayer.PlayerGui)

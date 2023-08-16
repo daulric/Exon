@@ -8,9 +8,9 @@ return function (component)
         end
 
         if component.values[hookCount] == nil then
-            component.values[hookCount] = {values = defaultVal}
+            component.values[hookCount] = {value = defaultVal}
         end
-        
+
         return component.values[hookCount]
     end
 end
