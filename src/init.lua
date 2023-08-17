@@ -5,6 +5,8 @@ local createReactHook = require(script:WaitForChild("createReactHook"))(react)
 
 local oneframe = require(script:WaitForChild("oneframe"))
 
+local import = require(script:WaitForChild("import"))
+
 local devbox = {
 
     oneframe = oneframe,
@@ -21,6 +23,9 @@ local devbox = {
 
     -- Hooks For Certain Modules,
     createReactHook = createReactHook,
+
+    -- Import Stuff
+    import = import,
 }
 
 export type devbox = typeof(devbox)
