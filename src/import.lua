@@ -1,20 +1,28 @@
-return function (target, ...)
-    local itemsListed = {...}
+function import(target)
     local targetType = typeof(target)
     local newTarget
-
-    local ImportedItems = {}
 
     if targetType == "table" then
         newTarget = target
     elseif targetType == "Instance" and target:IsA("ModuleScript") then
         newTarget = require(target)
+    else
+        error(`the target type was {targetType}; the expected target are either a table or a module script; {debug.traceback()}`)
     end
 
-    for i = 1, select("#", ...) do
-        assert(newTarget[itemsListed[i]] ~= nil, `This items is not available in {target}`)
-        table.insert(ImportedItems, newTarget[itemsListed[i]])
+    return function (imports)
+        assert(type(imports) == "table", `Imports is not a table; {debug.traceback()}`)
+        local importedItems = {}
+
+        for i = 1, #imports do
+            local item = newTarget[imports[i]]
+            assert(item ~= nil, `{imports[i]} is not a member of {target}`)
+            table.insert(importedItems, item)
+        end
+
+        return unpack(importedItems)
     end
 
-    return unpack(ImportedItems)
 end
+
+return import
