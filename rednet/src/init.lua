@@ -4,7 +4,7 @@ local RedNet = {}
 local RemoteEvent
 local RemoteFunction
 
-if RunService:IsServer() or RunService:IsStudio() then
+if RunService:IsServer() then
     RemoteEvent = Instance.new("RemoteEvent", script)
     RemoteFunction = Instance.new("RemoteFunction", script)
 elseif RunService:IsClient() then
