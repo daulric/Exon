@@ -12,7 +12,7 @@ local InternalData = Symbol.assign("InternalData")
 
 local componentMissingRenderMessage = [[
 The component %q is missing the `render` method.
-`render` must be defined when creating a Roact component!]]
+`render` must be defined when creating a React component!]]
 
 local tooManyUpdatesMessage = [[
 The component %q has reached the setState update recursion limit.
@@ -32,7 +32,7 @@ Component.__index = Component
 Component.__componentName = "Component"
 
 --[[
-	A method called by consumers of Roact to create a new component class.
+	A method called by consumers of React to create a new component class.
 	Components can not be extended beyond this point, with the exception of
 	PureComponent.
 ]]

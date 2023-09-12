@@ -19,7 +19,7 @@ end
 local BindingPublicMeta = {
 	__index = bindingPrototype,
 	__tostring = function(self)
-		return string.format("RoactBinding(%s)", tostring(self:getValue()))
+		return string.format("ReactBinding(%s)", tostring(self:getValue()))
 	end,
 }
 
