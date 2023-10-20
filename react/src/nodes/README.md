@@ -48,4 +48,10 @@ createRef()
 #### Example
 ```lua
 local instance = createRef()
+
+local element = createElement("Part", { 
+    [Ref] = instance, -- the part will be linked to the `instance` variable.
+})
+
+local part = instance:getValue() -- this will retrun the value which is the part!
 ```
