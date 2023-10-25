@@ -14,10 +14,10 @@ local Settings = require(script.Parent:WaitForChild("Settings"))
 
 local RunService = game:GetService("RunService")
 
-function render(scripts, ...)
-	if scripts.render then
+function start(scripts, ...)
+	if scripts.start then
 		local success, err = pcall(function(...)
-			task.spawn(scripts.render, scripts, ...)
+			task.spawn(scripts.start, scripts, ...)
 		end, ...)
 		
 		if not success then
@@ -68,7 +68,7 @@ function Connection(scripts: Framework, scriptName, ...: any)
 			-- this is just here to load variables and other stuff
 			preload(scripts, ...)
 			task.wait()
-			render(scripts, ...)
+			start(scripts, ...)
 		end, ...)
 
 		if scripts.closing and RunService:IsServer() then
