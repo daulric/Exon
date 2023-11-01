@@ -7,7 +7,7 @@ function createRef()
 
     setmetatable(ref, {
         __index = function(_self, key)
-			if key == "current" then
+			if key == "value" then
 				return bind:getValue()
 			else
 				return bind[key]
