@@ -1,6 +1,6 @@
-local devbox = require(game.ReplicatedStorage:WaitForChild("devbox"))
+local exon = require(game.ReplicatedStorage:WaitForChild("exon"))
 
-local Util = devbox.util
+local Util = exon.util
 
 local Items = {
     Bye = "Hello",

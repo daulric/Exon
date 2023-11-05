@@ -1,10 +1,10 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local devbox = require(ReplicatedStorage:WaitForChild("devbox"))
+local exon = require(ReplicatedStorage:WaitForChild("exon"))
 
-local react = devbox.react
+local react = exon.react
 
-local createElement, mount = devbox.import(react) {
+local createElement, mount = exon.import(react) {
     "createElement",
     "mount"
 }

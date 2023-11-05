@@ -1,6 +1,6 @@
-local devbox = require(game.ReplicatedStorage.devbox)
+local exon = require(game.ReplicatedStorage.exon)
 
-local rodb = devbox.rodb
+local rodb = exon.rodb
 
 local database = rodb.create("Test", "Testing")
 

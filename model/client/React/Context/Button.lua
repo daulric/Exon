@@ -1,5 +1,5 @@
-local devbox = require(game.ReplicatedStorage.devbox)
-local react = devbox.react
+local exon = require(game.ReplicatedStorage.exon)
+local react = exon.react
 
 local Theme = require(script.Parent:WaitForChild("Theme"))
 

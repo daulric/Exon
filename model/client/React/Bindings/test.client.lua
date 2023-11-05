@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
-local devbox = require(game.ReplicatedStorage.devbox)
+local exon = require(game.ReplicatedStorage.exon)
 
-local react = devbox.react
+local react = exon.react
 local testComp = require(script.Parent:WaitForChild("testComponent"))
 
 local element = react.createElement("ScreenGui", {

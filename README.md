@@ -1,11 +1,11 @@
-# devbox
+# Exon
 
 A collection of packages made and maintained by daulric.
 
-Add `dabox = daulric/devbox@<version>` and then,
+Add `dabox = daulric/exon@<version>` and then,
 Use `wally install` to install the packages.
 
-See [wally](https://wally.run/package/daulric/devbox) for the latest version!
+See [wally](https://wally.run/package/daulric/exon) for the latest version!
 
 The package contains:
 - [React](react/) - a declarative Lua UI Library for Roblox.

@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
-local devbox = require(game.ReplicatedStorage.devbox)
-local react = devbox.react
+local exon = require(game.ReplicatedStorage.exon)
+local react = exon.react
 
 local ThemeController = require(script.Parent:WaitForChild("ThemeController"))
 local Button = require(script.Parent:WaitForChild("Button"))

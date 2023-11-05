@@ -1,9 +1,9 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local devbox = require(ReplicatedStorage:WaitForChild("devbox"))
+local exon = require(ReplicatedStorage:WaitForChild("exon"))
 
-local react = devbox.react
-local createReactHook = devbox.createReactHook
+local react = exon.react
+local createReactHook = exon.createReactHook
 
 local button = createReactHook(function(props, hooks)
     local count, setCount = hooks.useState(0)

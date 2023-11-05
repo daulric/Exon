@@ -1,9 +1,9 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
-local devbox = require(ReplicatedStorage:WaitForChild("devbox"))
+local exon = require(ReplicatedStorage:WaitForChild("exon"))
 
-local react = devbox.react
+local react = exon.react
 
 local testComp = react.Component:extend("test comp")
 

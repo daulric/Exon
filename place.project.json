@@ -1,5 +1,5 @@
 {
-  "name": "devbox",
+  "name": "exon",
   "tree": {
     "$className": "DataModel",
 
@@ -9,7 +9,7 @@
         "$path": "model/shared"
       },
 
-      "devbox": {
+      "exon": {
         "$path": "default.project.json"
       }
     },

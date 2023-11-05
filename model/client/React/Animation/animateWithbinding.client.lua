@@ -2,8 +2,8 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local testComp = require(script.Parent:WaitForChild("testcomp"))
 
-local devbox = require(ReplicatedStorage:WaitForChild("devbox"))
-local react = devbox.react
+local exon = require(ReplicatedStorage:WaitForChild("exon"))
+local react = exon.react
 
 local element = react.createElement("ScreenGui", {
     Name = "React Animate Test",

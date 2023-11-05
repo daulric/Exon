@@ -7,7 +7,7 @@ local oneframe = require(script:WaitForChild("oneframe"))
 
 local import = require(script:WaitForChild("import"))
 
-local devbox = {
+local exon = {
 
     oneframe = oneframe,
     react = react,
@@ -28,10 +28,10 @@ local devbox = {
     import = import,
 }
 
-export type devbox = typeof(devbox)
+export type exon = typeof(exon)
 
-lockTable(devbox, "devbox", {
-    indexMessage = "(%s) is not a valid member of devbox!"
+lockTable(exon, "exon", {
+    indexMessage = "(%s) is not a valid member of exon!"
 })
 
-return devbox
+return exon
