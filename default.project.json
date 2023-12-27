@@ -23,10 +23,6 @@
             "$path": "util/default.project.json"
         },
 
-        "fission": {
-            "$path": "fission/default.project.json"
-        },
-
         "oneframe": {
             "$path": "oneframe/default.project.json"
         },

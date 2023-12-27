@@ -1,4 +1,5 @@
 function import(target)
+    
     local targetType = typeof(target)
     local newTarget
 
@@ -10,14 +11,35 @@ function import(target)
         error(`the target type was {targetType}; the expected target are either a table or a module script; {debug.traceback()}`)
     end
 
-    return function (imports)
-        assert(type(imports) == "table", `Imports is not a table; {debug.traceback()}`)
+    return function (paths)
         local importedItems = {}
 
-        for i = 1, #imports do
-            local item = newTarget[imports[i]]
-            assert(item ~= nil, `{imports[i]} is not a member of {target}`)
-            table.insert(importedItems, item)
+        assert((type(paths) == "table"), `table not recogized; {debug.traceback()}`)
+
+        for i = 1, #paths do
+
+            local path = paths[i]
+            local item
+
+            if string.find(path, "/") then
+                local nestedPaths = string.split(path, "/")
+
+                for i, v in pairs(nestedPaths) do
+                    if i == 1 then
+                        item = newTarget[v]
+                    else
+                        item = item[v]
+                    end
+                end
+
+            else
+                item = newTarget[path]
+            end
+
+            if item ~= nil then
+                table.insert(importedItems, item)
+            end
+
         end
 
         return unpack(importedItems)

@@ -5,26 +5,18 @@
 
     "ReplicatedStorage": {
 
-      "Shared": {
-        "$path": "model/shared"
-      },
-
       "exon": {
         "$path": "default.project.json"
       }
     },
 
     "ServerScriptService": {
-      "Server": {
-        "$path": "model/server"
-      }
+
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "Client": {
-          "$path": "model/client"
-        }
+        
       }
     }
   }

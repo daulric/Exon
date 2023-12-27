@@ -6,6 +6,7 @@ local createReactHook = require(script:WaitForChild("createReactHook"))(react)
 local oneframe = require(script:WaitForChild("oneframe"))
 
 local import = require(script:WaitForChild("import"))
+local util = require(script:WaitForChild("util"))
 
 local exon = {
 
@@ -14,15 +15,16 @@ local exon = {
 
     -- Packages
     rednet = require(script:WaitForChild("rednet")),
-    fission = require(script:WaitForChild("fission")),
     rodb = require(script:WaitForChild("rodb")),
 
     -- Utils and Stuff
     controllers = require(script:WaitForChild("controllers")),
-    util = require(script:WaitForChild("util")),
+    util = util,
 
-    -- Hooks For Certain Modules,
-    createReactHook = createReactHook,
+    -- Addons,
+    addons = {
+        createReactHook = createReactHook,
+    },
 
     -- Import Stuff
     import = import,
