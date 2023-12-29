@@ -1,25 +1,22 @@
 local Mouse = {}
 Mouse.__index = Mouse
 
-local Utilities = script.Parent.Parent.Parent:WaitForChild("Utilities")
-local Signal = require(Utilities.Signal)
-local Cleany = require(Utilities.Cleany)
+local tidy, rednet = require(script.Parent:WaitForChild("tidy")), require(script.Parent:WaitForChild("rednet"))
 
-local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 
 local default_distance = 1000
 
 function Mouse.new()
     local mouse = setmetatable({}, Mouse)
-    mouse._cleany = Cleany.create()
-    mouse.LeftDown = Signal.new()
-    mouse.LeftUp = Signal.new()
-    mouse.RightDown = Signal.new()
-    mouse.RightUp = Signal.new()
-    mouse.Scrolled = Signal.new()
+    mouse._cleany = tidy.init()
+    mouse.LeftDown = rednet.createSignal()
+    mouse.LeftUp = rednet.createSignal()
+    mouse.RightDown = rednet.createSignal()
+    mouse.RightUp = rednet.createSignal()
+    mouse.Scrolled = rednet.createSignal()
 
-    mouse._cleany:AddMultiple(mouse.LeftDown, mouse.LeftUp, mouse.RightDown, mouse.RightUp, mouse.Scrolled)
+    mouse._cleany:addMultiple(mouse.LeftDown, mouse.LeftUp, mouse.RightDown, mouse.RightUp, mouse.Scrolled)
 
     mouse:_setup()
 

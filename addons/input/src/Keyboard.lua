@@ -1,24 +1,20 @@
 local Keyboard = {}
 Keyboard.__index = Keyboard
 
-local Utilites = script.Parent.Parent.Parent:WaitForChild("Utilities")
-local Cleany = require(Utilites.Cleany)
-local Signal = require(Utilites.Signal)
+local tidy, rednet = require(script.Parent:WaitForChild("tidy")), require(script.Parent:WaitForChild("rednet"))
 
 local UIS = game:GetService("UserInputService")
 
 function Keyboard.new()
     local keyboard = setmetatable({}, Keyboard)
-    keyboard.cleany = Cleany.create()
-    keyboard.keyup = Signal.new()
-    keyboard.keydown = Signal.new()
-    keyboard.combination = Signal.new()
+    keyboard.cleany = tidy.init()
+    keyboard.keyup = rednet.createSignal()
+    keyboard.keydown = rednet.createSignal()
+    keyboard.combination = rednet.createSignal()
     keyboard.keybindings = {}
 
-    keyboard.cleany:AddMultiple(keyboard.keyup, keyboard.keydown, keyboard.combination)
-    
+    keyboard.cleany:addMultiple(keyboard.keyup, keyboard.keydown, keyboard.combination)
     keyboard:setup()
-
     return keyboard
 
 end

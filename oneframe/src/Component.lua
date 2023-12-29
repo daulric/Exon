@@ -1,21 +1,17 @@
 local Component = {}
 Component.__index = Component
 
-local Utilites = script.Parent:WaitForChild("Utilities")
-local Services = script.Parent:WaitForChild("Services")
 local Tools = script.Parent:WaitForChild("Tools")
 
 local Symbol = require(Tools:WaitForChild("Symbol"))
-
 
 -- Different Class
 local LiveClass = {}
 local TestClass = {}
 
-local Cleany = require(Utilites.Cleany)
+local tidy = require(script.Parent:WaitForChild("tidy"))
 
 type RegisterType = "live" | "test" | "shared"
-
 
 function CheckId(Table: {[string]: any}, name: string)
 	if Table[name] then
@@ -36,7 +32,7 @@ function Component:extend(name: string, test: boolean?)
 	class.state = {}
 	table.freeze(class.state)
 
-	class.Cleanup = Cleany.create()
+	class.Cleanup = tidy.init()
 	class.name = tostring(name)
 	class.validation = Symbol.assign(`{name} .. Component`)
 

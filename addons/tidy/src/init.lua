@@ -62,6 +62,16 @@ function Tidy:add(obj)
     return obj
 end
 
+function Tidy:addMultiple(...)
+    local items = {...}
+    
+    for i, v in pairs(items) do
+        self:add(v)
+    end
+
+    return items
+end
+
 function Tidy:remove(object)
     assert(self._cleaning ~= true, "cleaning in process")
 

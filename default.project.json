@@ -24,7 +24,11 @@
         },
 
         "oneframe": {
-            "$path": "oneframe/default.project.json"
+            "$path": "oneframe/default.project.json",
+
+            "tidy": {
+                "$path": "addons/tidy/default.project.json"
+            }
         },
 
         "addons": {
@@ -35,7 +39,19 @@
             },
 
             "tidy": {
-                "$path": "tidy/default.project.json"
+                "$path": "addons/tidy/default.project.json"
+            },
+
+            "input": {
+                "$path": "addons/input/default.project.json",
+
+                "tidy": {
+                    "$path": "addons/tidy/default.project.json"
+                },
+    
+                "rednet": {
+                    "$path": "rednet/default.project.json"
+                }
             }
         }
     }

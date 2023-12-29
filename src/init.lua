@@ -26,7 +26,8 @@ local exon = {
     -- Addons,
     addons = {
         createReactHook = createReactHook,
-        tidy = require(addons:WaitForChild("tidy"))
+        tidy = require(addons:WaitForChild("tidy")),
+        input = require(addons:WaitForChild("input")),
     },
 
     -- Import Stuff
