@@ -2,7 +2,7 @@
 
 A collection of packages made and maintained by daulric.
 
-Add `dabox = daulric/exon@<version>` and then,
+Add `exon = daulric/exon@<version>` and then,
 Use `wally install` to install the packages.
 
 See [wally](https://wally.run/package/daulric/exon) for the latest version!
