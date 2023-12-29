@@ -13,8 +13,6 @@ local Services = {
 	Input = require(Service:WaitForChild("Input")),
 }
 
-local Cleany = require(Utilities.Cleany)
-
 local OneFrame = {
 	-- Main Stuff
 	Component = Component,
@@ -25,7 +23,6 @@ local OneFrame = {
 	Promise = Promise,
 
 	-- Utilites!
-	createCleany = Cleany.create,
 	Settings = require(script:WaitForChild("Settings"))
 }
 

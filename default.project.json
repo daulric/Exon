@@ -27,8 +27,16 @@
             "$path": "oneframe/default.project.json"
         },
 
-        "createReactHook": {
-            "$path": "react/hooks.project.json"
+        "addons": {
+            "$className": "Folder",
+
+            "createReactHook": {
+                "$path": "react/hooks.project.json"
+            },
+
+            "tidy": {
+                "$path": "tidy/default.project.json"
+            }
         }
     }
 }

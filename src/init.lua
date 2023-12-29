@@ -1,7 +1,9 @@
 local lockTable = require(script:WaitForChild("lockTable"))
 
 local react = require(script:WaitForChild("react"))
-local createReactHook = require(script:WaitForChild("createReactHook"))(react)
+
+local addons = script:WaitForChild("addons")
+local createReactHook = require(addons:WaitForChild("createReactHook"))(react)
 
 local oneframe = require(script:WaitForChild("oneframe"))
 
@@ -24,6 +26,7 @@ local exon = {
     -- Addons,
     addons = {
         createReactHook = createReactHook,
+        tidy = require(addons:WaitForChild("tidy"))
     },
 
     -- Import Stuff
