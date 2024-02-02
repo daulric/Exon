@@ -31,6 +31,18 @@
             }
         },
 
+        "rodb v1" : {
+            "$path": "rodb v1/default.project.json",
+
+            "rednet": {
+                "$path": "rednet/default.project.json"
+            },
+
+            "tidy": {
+                "$path": "addons/tidy/default.project.json"
+            }
+        },
+
         "addons": {
             "$className": "Folder",
 

@@ -1,6 +1,6 @@
 [package]
 name = "daulric/exon"
-version = "0.0.30"
+version = "0.0.31"
 description = "Exon - a collection of modules created to make game development easier and simple"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"

@@ -10,6 +10,9 @@ local oneframe = require(script:WaitForChild("oneframe"))
 local import = require(script:WaitForChild("import"))
 local util = require(script:WaitForChild("util"))
 
+local rodbv1 = require(script:WaitForChild("rodb v1"))
+export type rodbv1 = typeof(rodbv1)
+
 local exon = {
 
     oneframe = oneframe,
@@ -28,6 +31,10 @@ local exon = {
         createReactHook = createReactHook,
         tidy = require(addons:WaitForChild("tidy")),
         input = require(addons:WaitForChild("input")),
+    },
+
+    test = {
+        rodbv1 = rodbv1
     },
 
     -- Import Stuff
