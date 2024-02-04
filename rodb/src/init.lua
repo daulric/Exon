@@ -1,140 +1,130 @@
 local RoDB = {}
 RoDB.__index = RoDB
 
-local unknownIndex = 0
-
-local Symbol = require(script:WaitForChild("Symbol"))
-
+-- Getting Services
 local DataBaseService = game:GetService("DataStoreService")
-local RunService = game:GetService("RunService")
-local RoDBRegistry
+local rednet = require(script:WaitForChild("rednet"))
+local tidy = require(script:WaitForChild("tidy"))
 
-if RunService:IsServer() then
-    RoDBRegistry = DataBaseService:GetDataStore("RoDB Database Registry")
-end
+type ProfileId = string | number
+type Database = string | number;
 
--- Different Services
-local ProfileModule = require(script:WaitForChild("Profile"))
-local GeneralDBModule = require(script:WaitForChild("GeneralDB"))
+type Profile = typeof(RoDB.createProfile())
 
-local RootDB = require(script:WaitForChild("RootDB"))
+function createSymbol(name)
+    local _blank_data = newproxy(true)
 
-RoDB.__tostring = function()
-    return "RoDB"
-end
-
-type Template = {[any]: any}
-function RoDB.create(name: string?, scope: Player | any?, template: Template?)
-    local Database = {}
-
-    template = template or {}
-    Database.template = template
-
-    if name == nil then
-        unknownIndex += 1
-        name = "unknownIndex_"..unknownIndex
+    getmetatable(_blank_data).__tostring = function()
+        return ("Key(%s)"):format(name)
     end
 
-    if scope then
+    return _blank_data;
+end
 
-        if typeof(scope) == "Instance" and scope:IsA("Player") then
-            Database.isProfile = Symbol.assign("Profile")
-            Database.player = scope
-        else
-            Database.isGeneral = Symbol.assign("General")
-            Database.id = scope
-        end
+type Table = {[any]: any}
 
-    end
-
-    Database.db = DataBaseService:GetDataStore(name)
-    Database.name = name
-    Database.data = {}
-    Database.isSaving = false
-    Database.isRetrieving = false
-
+function reconcileTable(template: Table, data: Table)
     for i, v in pairs(template) do
-        Database.data[i] = v
+        if data[i] == nil then
+            data[i] = v
+        end
+    end
+end
+
+function RoDB.createProfile(Name: Database, Id: ProfileId, template: Table)
+    local cleanUp = tidy.init()
+    local profile = {
+        _cleanup = cleanUp,
+        data = {},
+        Id = Id,
+        template =  {},
+        database = DataBaseService:GetDataStore(Name),
+        isOpened = true,
+        saving = cleanUp:add(rednet.createSignal()),
+        reconciled = cleanUp:add(rednet.createSignal()),
+    }
+
+    local self = setmetatable(profile, RoDB)
+    self:__createTemplate(template)
+
+    -- This adds the template to the template table within the profile
+    return self
+end
+
+function RoDB:__createTemplate(template)
+
+    if type(template) ~= "table" then
+        warn(`must use a table; {debug.traceback()}`)
     end
 
-    RoDBRegistry:UpdateAsync("Registry", function(oldData)
-        if oldData == nil then
-            oldData = {}
-        end
+    self.template = template
+end
 
-        if not table.find(oldData, name) then
-            print("Inserting a NEw Database", name)
-            table.insert(oldData, name)
-        end
-
-        return oldData
-    end)
-
-    return setmetatable(Database, RoDB)
+function RoDB:RunFunctionWhenClosing(func)
+    if type(func) == "function" then
+        self._cleanup:add(func)
+    end
 end
 
 function RoDB:Save()
 
-    if self.isSaving == true then
-        return
-    end
-
-    self.isSaving = true
-
-    if self.isProfile then
-        ProfileModule:SaveData(self, RootDB)
-    end
-
-    if self.isGeneral then
-       GeneralDBModule:SaveData(self, RootDB)
-    end
-
-    task.wait(1)
-    self.isSaving = false
-
-end
-
-function RoDB:Retrieve()
-    if self.isRetrieving == true then
-        return
-    end
-
-    self.isRetrieving = true
-
-    if self.isProfile then
-        ProfileModule:GetData(self, RootDB)
-    end
-
-    if self.isGeneral then
-        GeneralDBModule:GetData(self, RootDB)
-    end
-
-    task.wait(1)
-    self.isRetrieving = false
-
-end
-
-function RoDB:GetRegistry()
-    local Data = {}
-
-    RoDBRegistry:UpdateAsync("Registry", function(oldData)
+    local function saveData(oldData)
         if oldData == nil then
             oldData = {}
         end
-
-        for i, v in pairs(oldData) do
-            Data[i] = v
+    
+        for i, v in pairs(self.data) do
+            oldData[i] = v
         end
-
+    
         return oldData
+    end
+
+    local success, err = pcall(self.database.UpdateAsync, self.database, self.Id, saveData)
+
+    if success then
+        self.saving:Fire(self.Id)
+    else
+        warn(err)
+    end
+
+end
+
+function RoDB:Get()
+    local success, data = pcall(function()
+        return self.database:GetAsync(self.Id)
     end)
 
-    return table.freeze(Data)
+    if success then
 
+        if data == nil then
+            data = {}
+        end
+
+        for i, v in pairs(data) do
+            self.data[i] = v
+        end
+    end
+
+    -- This returns a cloned frozen version of the data
+    return table.freeze(table.clone(self.data))
 end
 
-if RunService:IsServer() then
-    return RoDB
-elseif RunService:IsClient() then
-    return {}
+function RoDB:Reconcile()
+    -- This compares the template to the actual data and fills in the missing spaces
+    reconcileTable(self.template, self.data)
+    self.reconciled:Fire(self.Id)
 end
+
+function RoDB:CloseProfile()
+    if self.isOpened ~= true then
+        return
+    end
+
+    self.data = nil
+    self.template = nil
+    task.wait(1)
+    self._cleanup:Clean()  -- Executes functions and clean objects and events.
+end
+
+return RoDB

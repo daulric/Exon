@@ -15,10 +15,6 @@
             "$path": "rednet/default.project.json"
         },
 
-        "rodb": {
-            "$path": "rodb/default.project.json"
-        },
-
         "util": {
             "$path": "util/default.project.json"
         },
@@ -31,7 +27,7 @@
             }
         },
 
-        "rodb v1" : {
+        "rodb" : {
             "$path": "rodb v1/default.project.json",
 
             "rednet": {
