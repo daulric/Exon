@@ -21,7 +21,7 @@ end
 
 type Table = {[any]: any}
 
-function reconcileTable(template: Table, data: Table, ignoreCloneToData: boolean?)
+function reconcileTable(template: Table, data: Table)
     for i, v in pairs(template) do
         if data[i] == nil then
             data[i] = v
@@ -30,16 +30,17 @@ function reconcileTable(template: Table, data: Table, ignoreCloneToData: boolean
 end
 
 function RoDB.createProfile(Name: Database, Id: Profile, template: Table)
+    local cleanUp = tidy.init()
     local profile = {
-        _cleanup = tidy.init(),
+        _cleanup = cleanUp,
         data = {},
         Id = Id,
         template =  {},
         database = DataBaseService:GetDataStore(Name),
         isOpened = true,
-        closed = rednet.createSignal(),
-        saving = rednet.createSignal(),
-        reconciled = rednet.createSignal(),
+        closed = cleanUp:add(rednet.createSignal()),
+        saving = cleanUp:add(rednet.createSignal()),
+        reconciled = cleanUp:add(rednet.createSignal()),
     }
 
     local self = setmetatable(profile, RoDB)
@@ -116,8 +117,8 @@ function RoDB:CloseProfile()
 
     self.data = nil
     self.template = nil
-    self._cleanup:Clean()  -- Executes functions and clean objects.
     self.closing:Fire(self.Id)
+    self._cleanup:Clean()  -- Executes functions and clean objects and events.
 end
 
 function RoDB.createProfileStorage(name: string)
@@ -143,6 +144,8 @@ function RoDB.createProfileStorage(name: string)
             warn(`Storage Already Exsist with current ID: {profile.Id} in {name}`)
         end
 
+        return table.freeze(table.clone(profile))
+
     end
 
     function storage:remove(profileId: string)
@@ -151,6 +154,10 @@ function RoDB.createProfileStorage(name: string)
         if currentStorage ~= nil then
             storage[tag][name][profileId] = nil
         end
+    end
+
+    function storage:find(profile_id)
+        return storage[tag][name][profile_id]
     end
 
     return storage
