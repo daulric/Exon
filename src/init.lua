@@ -33,10 +33,6 @@ local exon = {
         input = require(addons:WaitForChild("input")),
     },
 
-    test = {
-        rodbv1 = rodbv1
-    },
-
     -- Import Stuff
     import = import,
 }
