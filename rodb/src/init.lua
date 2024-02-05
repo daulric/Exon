@@ -27,37 +27,33 @@ function reconcileTable(template: Table, data: Table)
     for i, v in pairs(template) do
         if data[i] == nil then
             data[i] = v
+        elseif type(data[i]) == "table" and type(v) == "table" then
+            data[i] = reconcileTable(v, data[i])
         end
     end
+
+    return data
 end
 
-function RoDB.createProfile(Name: Database, Id: ProfileId, template: Table)
+function RoDB.LoadProfile(database: Database, Id: ProfileId, template: Table)
     local cleanUp = tidy.init()
+    template = template or {}
+
     local profile = {
         _cleanup = cleanUp,
         data = {},
         Id = Id,
-        template =  {},
-        database = DataBaseService:GetDataStore(Name),
+        template = template,
+        database = DataBaseService:GetDataStore(database),
         isOpened = true,
         saving = cleanUp:add(rednet.createSignal()),
         reconciled = cleanUp:add(rednet.createSignal()),
     }
 
     local self = setmetatable(profile, RoDB)
-    self:__createTemplate(template)
+    self:__get()
 
-    -- This adds the template to the template table within the profile
     return self
-end
-
-function RoDB:__createTemplate(template)
-
-    if type(template) ~= "table" then
-        warn(`must use a table; {debug.traceback()}`)
-    end
-
-    self.template = template
 end
 
 function RoDB:RunFunctionWhenClosing(func)
@@ -90,7 +86,7 @@ function RoDB:Save()
 
 end
 
-function RoDB:Get()
+function RoDB:__get()
     local success, data = pcall(function()
         return self.database:GetAsync(self.Id)
     end)
