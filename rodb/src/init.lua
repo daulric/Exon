@@ -112,7 +112,7 @@ function RoDB:Reconcile()
     self.reconciled:Fire(self.Id)
 end
 
-function RoDB:CloseProfile()
+function RoDB:Close()
     if self.isOpened ~= true then
         return
     end
