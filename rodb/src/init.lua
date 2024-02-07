@@ -8,19 +8,7 @@ local tidy = require(script:WaitForChild("tidy"))
 
 type ProfileId = string | number
 type Database = string | number;
-
 type Profile = typeof(RoDB.createProfile())
-
-function createSymbol(name)
-    local _blank_data = newproxy(true)
-
-    getmetatable(_blank_data).__tostring = function()
-        return ("Key(%s)"):format(name)
-    end
-
-    return _blank_data;
-end
-
 type Table = {[any]: any}
 
 function reconcileTable(template: Table, data: Table)
@@ -45,7 +33,8 @@ function RoDB.LoadProfile(database: Database, Id: ProfileId, template: Table)
         Id = Id,
         template = template,
         database = DataBaseService:GetDataStore(database),
-        isOpened = true,
+        isSaving = false,
+        isClosing = false,
         saving = cleanUp:add(rednet.createSignal()),
         reconciled = cleanUp:add(rednet.createSignal()),
     }
@@ -56,71 +45,125 @@ function RoDB.LoadProfile(database: Database, Id: ProfileId, template: Table)
     return self
 end
 
-function RoDB:RunFunctionWhenClosing(func)
-    if type(func) == "function" then
-        self._cleanup:add(func)
+function RoDB:ListenForClosure(callback)
+    if type(callback) == "function" then
+        self._cleanup:add(callback)
     end
 end
 
 function RoDB:Save()
 
+    if self.isSaving == true then
+        error("[Exon RoDB]: Currently Saving Data!")
+    end
+
+    self.isSaving = true
+
     local function saveData(oldData)
         if oldData == nil then
             oldData = {}
         end
-    
-        for i, v in pairs(self.data) do
-            oldData[i] = v
+
+        if self.data ~= nil then
+            for i, v in pairs(self.data) do
+                oldData[i] = v
+            end
         end
-    
+
         return oldData
     end
 
     local success, err = pcall(self.database.UpdateAsync, self.database, self.Id, saveData)
 
     if success then
-        self.saving:Fire(self.Id)
+        if self.saving ~= nil or self.isClosing == true then
+            self.saving:Fire(self.Id)
+        end
     else
         warn(err)
     end
 
+    task.wait()
+    self.isSaving = false
 end
 
 function RoDB:__get()
-    local success, data = pcall(function()
-        return self.database:GetAsync(self.Id)
-    end)
 
-    if success then
-
-        if data == nil then
-            data = {}
+    local function getdata(olddata)
+        if olddata == nil then
+            olddata = {}
         end
 
-        for i, v in pairs(data) do
-            self.data[i] = v
+        --// Session Locking
+        if olddata.sessionId == nil then
+            olddata.sessionId = game.JobId
+        elseif olddata.sessionId ~= game.JobId then
+            error(`{self.Id} profile is currently opened in another server;`)
         end
+
+        for i, v in pairs(olddata) do
+            if i ~= "sessionId" then
+                self.data[i] = v
+            end
+        end
+
+        return olddata
+    end
+
+    local success, err = pcall(self.database.UpdateAsync, self.database, self.Id, getdata)
+
+    if not success then
+        error(err)
     end
 
     -- This returns a cloned frozen version of the data
     return table.freeze(table.clone(self.data))
 end
 
+-- // This fills in the missing part of the data from the template
 function RoDB:Reconcile()
     -- This compares the template to the actual data and fills in the missing spaces
     reconcileTable(self.template, self.data)
     self.reconciled:Fire(self.Id)
 end
 
+-- // This saves and closes the profile!
 function RoDB:Close()
-    if self.isOpened ~= true then
+
+    if self.isClosing == true then
+        warn("[Exon RoDB]: Profile is Closed or Already Closing!")
         return
     end
 
-    self.data = nil
+    self.isClosing = true
+
+    local success, err = pcall(function()
+        self.database:UpdateAsync(self.Id, function(oldData)
+            if oldData.sessionId == game.JobId then
+                oldData.sessionId = nil
+            end
+
+            if self.data ~= nil and type(self.data) == "table" then
+                for i, v in pairs(self.data) do
+                    oldData[i] = v
+                end
+            else
+                error("[Exon RoDB]: The self.data either not a table or it doesn't exsist!")
+            end
+
+            return oldData
+        end)
+    end)
+
+    if not success then
+        warn(err)
+    end
+
     self.template = nil
-    task.wait(1)
+    self.data = nil
+    task.wait()
     self._cleanup:Clean()  -- Executes functions and clean objects and events.
+    self = {}
 end
 
 return RoDB
