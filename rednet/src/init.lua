@@ -68,33 +68,37 @@ function RedNet.listen(id: string, callback : (...any) -> () )
     return listener
 end
 
-function GetListener(tempData)
-    local data = {}
+function GetListener(temp)
 
-    for i, v in pairs(tempData.data) do
-        data[i] = v
+    if temp.id and Listeners[temp.id] then
+        return Listeners[temp.id], temp.data
     end
 
-    if tempData.id and Listeners[tempData.id] then
-        return Listeners[tempData.id], data
+end
+
+function Validate(tempData)
+    local success, listener, data = pcall(GetListener, tempData)
+
+    if success and listener ~= nil and data ~= nil then
+        return true
     end
 
+end
+
+function NoCallbackMessage(id)
+    return `There is no Callback Function; Callback for {id} doesn't exsist!`
 end
 
 function ServerListen(player: Player, tempData)
-    local success, listener, data = pcall(GetListener, tempData)
-
-    if success then
-        return listener._callback(player, unpack(data))
-    end
+    local listener, data = GetListener(tempData)
+    assert(Validate(tempData), NoCallbackMessage(tempData.id))
+    return listener._callback(player, unpack(data))
 end
 
 function ClientListen(tempData)
-    local success, listener, data = pcall(GetListener, tempData)
-
-    if success then
-        return listener._callback(unpack(data))
-    end
+    local listener, data = GetListener(tempData)
+    assert(Validate(tempData), NoCallbackMessage(tempData.id))
+    return listener._callback(unpack(data))
 end
 
 if RunService:IsServer() then
