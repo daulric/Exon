@@ -54,7 +54,8 @@ end
 function RoDB:Save()
 
     if self.isSaving == true then
-        error("[Exon RoDB]: Currently Saving Data!")
+        warn("[Exon RoDB]: Currently Saving Data!")
+        return
     end
 
     self.isSaving = true
