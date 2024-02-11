@@ -27,9 +27,9 @@
             }
         },
 
-        "rodb" : {
+        "db" : {
 
-            "$path": "rodb/default.project.json",
+            "$path": "db/default.project.json",
 
             "rednet": {
                 "$path": "rednet/default.project.json"

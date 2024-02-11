@@ -1,5 +1,5 @@
-local RoDB = {}
-RoDB.__index = RoDB
+local DB = {}
+DB.__index = DB
 
 -- Getting Services
 local DataBaseService = game:GetService("DataStoreService")
@@ -8,7 +8,6 @@ local tidy = require(script:WaitForChild("tidy"))
 
 type ProfileId = string | number
 type Database = string | number;
-type Profile = typeof(RoDB.createProfile())
 type Table = {[any]: any}
 
 function reconcileTable(template: Table, data: Table)
@@ -23,38 +22,50 @@ function reconcileTable(template: Table, data: Table)
     return data
 end
 
-function RoDB.LoadProfile(database: Database, Id: ProfileId, template: Table)
+function DB.LoadProfile(database: Database, Id: ProfileId, template: Table?)
     local cleanUp = tidy.init()
     template = template or {}
 
     local profile = {
         _cleanup = cleanUp,
         data = {},
+        Settings = {
+            EnableAutoSaveEvent = true,
+            AutoSaveTime = 10,
+        },
+
         Id = Id,
         template = template,
+        Name = database,
         database = DataBaseService:GetDataStore(database),
         isSaving = false,
         isClosing = false,
+        isReconciling = false,
+        isAutoSavingCancel = false,
         saving = cleanUp:add(rednet.createSignal()),
         reconciled = cleanUp:add(rednet.createSignal()),
     }
 
-    local self = setmetatable(profile, RoDB)
+    local self = setmetatable(profile, DB)
     self:__get()
 
     return self
 end
 
-function RoDB:ListenForClosure(callback)
+function DB:ListenForClosure(callback)
     if type(callback) == "function" then
         self._cleanup:add(callback)
     end
 end
 
-function RoDB:Save()
+function DB:Save(fireSaveEvent: boolean?)
+
+    if fireSaveEvent == nil then
+        fireSaveEvent = true
+    end
 
     if self.isSaving == true then
-        warn("[Exon RoDB]: Currently Saving Data!")
+        warn(`[Exon DB]: {self.Id} Profile in {self.Name} Currently Saving Data!`)
         return
     end
 
@@ -78,6 +89,10 @@ function RoDB:Save()
 
     if success then
         if self.saving ~= nil or self.isClosing == true then
+            if fireSaveEvent == false then
+                return
+            end
+
             self.saving:Fire(self.Id)
         end
     else
@@ -88,7 +103,21 @@ function RoDB:Save()
     self.isSaving = false
 end
 
-function RoDB:__get()
+function DB:AutoSave()
+    -- // AutoSaving Data every 30 seconds
+    task.spawn(function()
+        while task.wait(self.Settings.AutoSaveTime) do
+            if self.isAutoSavingCancel == true then
+                break
+            end
+
+            self:Save(self.Settings.EnableAutoSaveEvent) -- Fire the events in autosaving
+            task.wait()
+        end
+    end)
+end
+
+function DB:__get()
 
     local function getdata(olddata)
         if olddata == nil then
@@ -99,7 +128,8 @@ function RoDB:__get()
         if olddata.sessionId == nil then
             olddata.sessionId = game.JobId
         elseif olddata.sessionId ~= game.JobId then
-            error(`{self.Id} profile is currently opened in another server;`)
+            warn(`[Exon DB]: {self.Id} profile in {self.Name} is currently opened in another server;`)
+            return olddata
         end
 
         for i, v in pairs(olddata) do
@@ -114,7 +144,7 @@ function RoDB:__get()
     local success, err = pcall(self.database.UpdateAsync, self.database, self.Id, getdata)
 
     if not success then
-        error(err)
+        warn(err)
     end
 
     -- This returns a cloned frozen version of the data
@@ -122,17 +152,27 @@ function RoDB:__get()
 end
 
 -- // This fills in the missing part of the data from the template
-function RoDB:Reconcile()
+function DB:Reconcile()
+
+    if self.isReconciling == true then
+        warn(`[Exon DB]: {self.Id} Profile in {self.Name} is Reconciling Data!`)
+        return
+    end
+
+    self.isReconciling = true
+
     -- This compares the template to the actual data and fills in the missing spaces
     reconcileTable(self.template, self.data)
     self.reconciled:Fire(self.Id)
+    task.wait()
+    self.isReconciling = false
 end
 
 -- // This saves and closes the profile!
-function RoDB:Close()
+function DB:Close()
 
     if self.isClosing == true then
-        warn("[Exon RoDB]: Profile is Closed or Already Closing!")
+        warn(`[Exon DB]: {self.Id} Profile in {self.Name} Has Closed or Already Closing!`)
         return
     end
 
@@ -149,7 +189,8 @@ function RoDB:Close()
                     oldData[i] = v
                 end
             else
-                error("[Exon RoDB]: The self.data either not a table or it doesn't exsist!")
+                warn("[Exon DB]: The `self.data` either not a table or it doesn't exsist!")
+                return
             end
 
             return oldData
@@ -160,6 +201,7 @@ function RoDB:Close()
         warn(err)
     end
 
+    self.isAutoSavingCancel = true
     self.template = nil
     self.data = nil
     task.wait()
@@ -167,4 +209,4 @@ function RoDB:Close()
     self = {}
 end
 
-return RoDB
+return DB

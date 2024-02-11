@@ -17,7 +17,7 @@ local exon = {
 
     -- Packages
     rednet = require(script:WaitForChild("rednet")),
-    rodb = require(script:WaitForChild("rodb")),
+    db = require(script:WaitForChild("db")),
 
     -- Utils and Stuff
     controllers = require(script:WaitForChild("controllers")),
