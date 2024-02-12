@@ -1,13 +1,13 @@
 local Component = require(script.Parent.Parent:WaitForChild("Component"))
 local createFragment = require(script.Parent:WaitForChild("createFragment"))
-local createSignal = require(script.Parent.Parent:WaitForChild("RemoteSignal"))
+local rednet = require(script.Parent.Parent:WaitForChild("rednet"))
 local Children = require(script.Parent.Parent:WaitForChild("markers"):WaitForChild("Children"))
 local Symbol = require(script.Parent.Parent:WaitForChild("markers"):WaitForChild("Symbol"))
 
 function createIndex(value)
     return {
         value = value,
-        onUpdate = createSignal()
+        onUpdate = rednet.createSignal()
     }
 end
 

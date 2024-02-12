@@ -1,4 +1,4 @@
-local createSignal = require(script.Parent.RemoteSignal)
+local rednet = require(script.Parent:WaitForChild("rednet"))
 local Symbol = require(script.Parent.markers.Symbol)
 local ElementType = require(script.Parent.markers.ElementType)
 
@@ -38,7 +38,7 @@ end
 function BindingInternalApi.create(initialValue)
 	local impl = {
 		value = initialValue,
-		changeSignal = createSignal(),
+		changeSignal = rednet.createSignal(),
 	}
 
 	function impl.subscribe(callback)

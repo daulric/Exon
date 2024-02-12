@@ -15,3 +15,5 @@ The package contains:
 - [Controllers](controllers/) - a way of creating modules without using require.
 - [Util](util/) - this is just basic modules to make like easier when programming your games.
 - [Exon Addons](addons/) - these are extra modules for better creating or improving your game.
+
+Modules are interconnected with other modules in this project

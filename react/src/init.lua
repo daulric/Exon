@@ -1,6 +1,5 @@
 -- \\ Utils // --
 local nodes = script:WaitForChild("nodes")
-local system = script:WaitForChild("system")
 local markers = script:WaitForChild("markers")
 
 local data = require(markers:WaitForChild("data"))

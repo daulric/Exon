@@ -8,7 +8,11 @@
         },
 
         "react": {
-            "$path": "react/default.project.json"
+            "$path": "react/default.project.json",
+
+            "rednet": {
+                "$path": "rednet/default.project.json"
+            }
         },
 
         "rednet": {
