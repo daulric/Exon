@@ -12,6 +12,10 @@
 
             "rednet": {
                 "$path": "rednet/default.project.json"
+            },
+
+            "freeze": {
+                "$path": "addons/freeze/default.project.json"
             }
         },
 
@@ -25,14 +29,15 @@
 
         "oneframe": {
             "$path": "oneframe/default.project.json",
-
             "tidy": {
                 "$path": "addons/tidy/default.project.json"
+            },
+            "freeze": {
+                "$path": "addons/freeze/default.project.json"
             }
         },
 
         "db" : {
-
             "$path": "db/default.project.json",
 
             "rednet": {
