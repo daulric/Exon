@@ -20,7 +20,7 @@ This executes all modules within a folder or has been listed in a table.
 -- This is the component class that contains all the stuff for the various component.
 
 ```lua
-OneFrame.Component.create(name: String)`
+OneFrame.Component.create(name: String)
 ```
 This creates a component to be executed when `:OnStart` has been called from the Server or Client
 
