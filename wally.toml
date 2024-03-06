@@ -1,8 +1,14 @@
 [package]
 name = "daulric/exon"
-version = "0.0.39"
-description = "Exon - a collection of modules created to make game development easier and simple"
+version = "0.0.42"
+description = "A Game Framework for making game easier."
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
+exclude = [
+    "*.rbxm",
+    "place.project.json",
+    ".gitattributes",
+    ".gitignore"
+]
 
 [dependencies]

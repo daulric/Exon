@@ -1,6 +1,6 @@
 # Exon
 
-A collection of packages made and maintained by daulric.
+A Game Framework for making game easier.
 
 Add `exon = daulric/exon@<version>` and then,
 Use `wally install` to install the packages.
