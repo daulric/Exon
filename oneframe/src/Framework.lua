@@ -7,21 +7,17 @@ local RunService = game:GetService("RunService")
 
 local msgTag = "[Exon OneFrame]:"
 
-function Start(scripts, ...)
-    local success, err = pcall(task.spawn, scripts.start, scripts, ...)
+function err(...)
+    warn("[Exon OneFrame]:", ...)
+end
 
-    if not success then
-        warn(`{msgTag} Error Starting the Code!; {err}`)
-    end
+function Start(scripts, ...)
+    xpcall(task.spawn, err, scripts.start, scripts, ... )
 end
 
 function preload(scripts, ...)
     if scripts.preload then
-        local success, err = pcall(task.spawn, scripts.preload, scripts, ...)
-
-        if not success then
-            warn(`{msgTag} Error Preload Code! {err}`)
-        end
+        xpcall(task. spawn, err, scripts.preload, scripts, ...)
     end
 end
 
