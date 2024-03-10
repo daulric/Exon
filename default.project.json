@@ -4,7 +4,10 @@
         "$path": "src",
 
         "controllers": {
-            "$path": "controllers/default.project.json"
+            "$path": "controllers/default.project.json",
+            "symbol": {
+                "$path": "addons/symbol/default.project.json"
+            }
         },
 
         "react": {
@@ -16,6 +19,10 @@
 
             "freeze": {
                 "$path": "addons/freeze/default.project.json"
+            },
+
+            "symbol": {
+                "$path": "addons/symbol/default.project.json"
             }
         },
 
@@ -34,6 +41,10 @@
             },
             "freeze": {
                 "$path": "addons/freeze/default.project.json"
+            },
+
+            "symbol": {
+                "$path": "addons/symbol/default.project.json"
             }
         },
 

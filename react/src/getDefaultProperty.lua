@@ -1,4 +1,4 @@
-local Symbol = require(script.Parent:WaitForChild("markers").Symbol)
+local Symbol = require(script.Parent:WaitForChild("symbol"))
 
 local Nil = Symbol.assign("Nil")
 local _cachedPropertyValues = {}

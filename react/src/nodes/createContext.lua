@@ -2,7 +2,7 @@ local Component = require(script.Parent.Parent:WaitForChild("Component"))
 local createFragment = require(script.Parent:WaitForChild("createFragment"))
 local rednet = require(script.Parent.Parent:WaitForChild("rednet"))
 local Children = require(script.Parent.Parent:WaitForChild("markers"):WaitForChild("Children"))
-local Symbol = require(script.Parent.Parent:WaitForChild("markers"):WaitForChild("Symbol"))
+local Symbol = require(script.Parent.Parent:WaitForChild("symbol"))
 
 function createIndex(value)
     return {

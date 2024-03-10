@@ -1,3 +1,3 @@
-local Symbol = require(script.Parent:WaitForChild("Tools").Symbol)
+local Symbol = require(script.Parent:WaitForChild("symbol"))
 
 return Symbol.assign("Marker")

@@ -4,7 +4,7 @@ type ElementKindType = typeof(ElementTypeInternal)
 
 local ElementType: ElementKindType = newproxy(true)
 
-local Symbol = require(script.Parent.Symbol)
+local Symbol = require(script.Parent.Parent:WaitForChild("symbol"))
 
 local Gateway = require(script.Parent:WaitForChild("Gateway"))
 

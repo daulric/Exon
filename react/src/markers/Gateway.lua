@@ -1,4 +1,4 @@
-local Symbol = require(script.Parent.Symbol)
+local Symbol = require(script.Parent.Parent:WaitForChild("symbol"))
 
 local Gateway = Symbol.assign("Gateway")
 

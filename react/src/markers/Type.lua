@@ -1,4 +1,4 @@
-local Symbol = require(script.Parent:WaitForChild("Symbol"))
+local Symbol = require(script.Parent.Parent:WaitForChild("symbol"))
 
 return {
     -- // Event, Property, and Attribute Signals for Events

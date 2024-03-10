@@ -1,6 +1,6 @@
 local markers = script.Parent:WaitForChild("markers")
 local ComponentLifecyclePhase = require(markers:WaitForChild("Lifecycle"))
-local Symbol = require(markers:WaitForChild("Symbol"))
+local Symbol = require(script.Parent:WaitForChild("symbol"))
 local ElementType = require(markers:WaitForChild("ElementType"))
 local assign = require(script.Parent:WaitForChild("assign"))
 

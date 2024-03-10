@@ -1,5 +1,5 @@
 local rednet = require(script.Parent:WaitForChild("rednet"))
-local Symbol = require(script.Parent.markers.Symbol)
+local Symbol = require(script.Parent:WaitForChild("symbol"))
 local ElementType = require(script.Parent.markers.ElementType)
 
 local BindingImpl = Symbol.assign("BindingImpl")

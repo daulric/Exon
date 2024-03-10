@@ -1,6 +1,6 @@
 local markers = script.Parent:WaitForChild("markers")
 local ElementType = require(markers:WaitForChild("ElementType"))
-local Symbol = require(markers:WaitForChild("Symbol"))
+local Symbol = require(script.Parent:WaitForChild("symbol"))
 local Children = require(markers:WaitForChild("Children"))
 
 local InternalData = Symbol.assign("Internal Data")
