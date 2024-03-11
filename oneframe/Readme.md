@@ -1,4 +1,4 @@
-# __OneFrame__
+# Exon OneFrame
 
 A Module for Handling Multiple Modules Under a Single Server or a Client
 
