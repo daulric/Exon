@@ -1,6 +1,6 @@
 [package]
 name = "daulric/exon"
-version = "0.0.45"
+version = "0.0.46"
 description = "A Framework used for Game and Other Development"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
@@ -8,7 +8,8 @@ exclude = [
     "*.rbxm",
     "place.project.json",
     ".gitattributes",
-    ".gitignore"
+    ".gitignore",
+    "*.md"
 ]
 
 [dependencies]
