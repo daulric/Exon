@@ -6,6 +6,7 @@ Add `exon = daulric/exon@<version>` and then,
 Use `wally install` to install the packages.
 
 See [wally](https://wally.run/package/daulric/exon) for the latest version!
+[Diagram or Architecture](https://docs.google.com/presentation/d/1sfQDSs2ga9E9zgXeKqocMjErYHgu4VrXU_85nnyz814/edit?usp=sharing)
 
 Download a [Direct Copy](./Exon.rbxm)
 
