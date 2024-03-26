@@ -91,13 +91,13 @@ end
 
 function ServerListen(player: Player, tempData)
     local listener, data = GetListener(tempData)
-    assert(Validate(tempData), NoCallbackMessage(tempData.id))
+    assert(Validate(tempData) == true, NoCallbackMessage(tempData.id))
     return listener._callback(player, unpack(data))
 end
 
 function ClientListen(tempData)
     local listener, data = GetListener(tempData)
-    assert(Validate(tempData), NoCallbackMessage(tempData.id))
+    assert(Validate(tempData) == true, NoCallbackMessage(tempData.id))
     return listener._callback(unpack(data))
 end
 
