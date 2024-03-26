@@ -33,6 +33,7 @@ local react = {
     forwardRef = forwardRef,
 
     --// Event, Property, and Attribute Signals
+    Bind = Binding.bind_key,
     Change = data.Change,
     Event = data.Event,
     AttributeChange = data.AttributeChange,

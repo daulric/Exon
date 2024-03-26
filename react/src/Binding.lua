@@ -5,6 +5,7 @@ local ElementType = require(script.Parent.markers.ElementType)
 local BindingImpl = Symbol.assign("BindingImpl")
 
 local BindingInternalApi = {}
+BindingInternalApi.bind_key = BindingImpl
 
 local bindingPrototype = {}
 
