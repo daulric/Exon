@@ -3,33 +3,10 @@ local markers = script.Parent.Parent:WaitForChild("markers")
 local ElementType = require(markers.ElementType)
 local Children = require(markers.Children)
 
-function extractData(ProccessChildren, children)
-
-
-    if type(ProccessChildren) ~= "table" then return end
-
-    for i, child in pairs(ProccessChildren) do
-        if type(child) == "table" then
-            if child.Type ~= nil then
-                children[i] = child
-            else
-                extractData(child, children)
-            end
-        end
-    end
-
-end
-
-function createElement(class, props, ...: any)
-
-    local processChildren = {...}
-    local children = {}
-
+function createElement(class, props, children)
     props = props or {}
 
-    if processChildren ~= nil then
-
-        extractData(processChildren, children)
+    if children ~= nil then
 
         if props[Children] ~= nil then
             warn("there is already children in the props")
