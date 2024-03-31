@@ -125,7 +125,7 @@ function DB:__get()
         end
 
         --// Session Locking
-        if olddata.sessionId == nil then
+        if olddata.sessionId == "" then
             olddata.sessionId = game.JobId
         elseif olddata.sessionId ~= game.JobId then
             warn(`[Exon DB]: {self.Id} profile in {self.Name} is currently opened in another server;`)
@@ -181,7 +181,7 @@ function DB:Close()
     local success, err = pcall(function()
         self.database:UpdateAsync(self.Id, function(oldData)
             if oldData.sessionId == game.JobId then
-                oldData.sessionId = nil
+                oldData.sessionId = ""
             end
 
             if self.data ~= nil and type(self.data) == "table" then

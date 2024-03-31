@@ -1,6 +1,6 @@
 [package]
 name = "daulric/exon"
-version = "0.0.50"
+version = "0.0.51"
 description = "A Framework used for Game and Other Development"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
