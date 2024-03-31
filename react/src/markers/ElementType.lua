@@ -71,26 +71,22 @@ function ElementTypeInternal.iterateElements(index)
     local regType = typeof(index)
     local richType = ElementTypeInternal.of(index)
 
-    if index.Type then
+    if richType then
 
         local called = false
 
         return function (_, _)
             if called then
-                return nil 
+                return nil
             else
                 called = true
                 return ElementTypeInternal.Key, index
             end
         end
 
-    end
-
-    if index == nil or regType == "boolean" then
+    elseif index == nil or regType == "boolean" then
         return (noop :: any)
-    end
-
-    if regType == "table" then
+    elseif regType == "table" then
         return pairs(index)
     end
 
