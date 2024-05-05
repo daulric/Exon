@@ -58,12 +58,27 @@ type createUser = {username: string, password: any}
 
 function Auth:createNewUsers(array: { createUser })
     for _, user in pairs(array) do
-        self._users[user.username] = user
+        if self._users[user.username] == nil then
+            self._users[user.username] = user
+        else
+            return promise.reject(`user "{user.username}" already exists; Proccess Stopped!`)
+        end
+    end
+
+    return promise.resolve("Success")
+end
+
+function Auth:deleteUser(user: string)
+    if self._users[user] ~= nil then
+        self._users[user] = nil
+        return promise.resolve("Deleted Successfully")
+    else
+        return promise.reject(`User "{user}" Not Found!`)
     end
 end
 
 function Auth:Login(username, password) : typeof(promise.new())
-    return self._successAuthEvent:Fire(username, password)
+    return promise.resolve(self._successAuthEvent:Fire(username, password))
 end
 
 return Auth
