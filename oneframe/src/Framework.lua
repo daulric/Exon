@@ -1,6 +1,4 @@
-local Tools = script.Parent:WaitForChild("Tools")
-local Promise = require(Tools:WaitForChild("Promise"))
-
+local Promise = require(script.Parent:WaitForChild("promise"))
 local Marker = require(script.Parent:WaitForChild("Mark"))
 
 local RunService = game:GetService("RunService")

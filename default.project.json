@@ -43,6 +43,10 @@
                 "$path": "addons/freeze/default.project.json"
             },
 
+            "promise": {
+                "$path": "addons/promise/default.project.json"
+            },
+
             "symbol": {
                 "$path": "addons/symbol/default.project.json"
             }
