@@ -60,6 +60,18 @@
             }
         },
 
+        "auth": {
+            "$path": "auth/default.project.json",
+
+            "rednet": {
+                "$path": "rednet/default.project.json"
+            },
+
+            "promise": {
+                "$path": "addons/promise/default.project.json"
+            }
+        },
+
         "addons": {
             "$className": "Folder",
 

@@ -1,0 +1,6 @@
+{
+    "name": "auth",
+    "tree": {
+        "$path": "src"
+    }
+}

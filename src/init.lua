@@ -30,6 +30,10 @@ local exon = {
         input = require(addons:WaitForChild("input")),
     },
 
+    api = {
+        auth = require(script:WaitForChild("auth"))
+    },
+
     -- Import Stuff
     import = import,
 }
