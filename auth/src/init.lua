@@ -72,9 +72,18 @@ function Auth:deleteUser(user: string)
     if self._users[user] ~= nil then
         self._users[user] = nil
         return promise.resolve("Deleted Successfully")
-    else
-        return promise.reject(`User "{user}" Not Found!`)
     end
+
+    return promise.reject(`User "{user}" Not Found!`)
+end
+
+function Auth:resetPassword(user: string, passcode)
+    if self._users[user] ~= nil then
+        self._users[user].password = passcode
+        return promise.resolve(`Password for {user} is Resetted Successfully`)
+    end
+
+    return promise.reject(`User "{user}" Not Found! Unable to Reset Password`)
 end
 
 function Auth:Login(username, password) : typeof(promise.new())
