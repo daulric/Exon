@@ -11,12 +11,16 @@
     },
 
     "ServerScriptService": {
-
+        "tests": {
+          "$path": "tests/server"
+        }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        
+        "tests": {
+          "$path": "tests/client"
+        }
       }
     }
   }

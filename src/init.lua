@@ -3,6 +3,8 @@ local lockTable = require(script:WaitForChild("lockTable"))
 local react = require(script:WaitForChild("react"))
 
 local addons = script:WaitForChild("addons")
+local api = script:WaitForChild("api")
+
 local createReactHook = require(addons:WaitForChild("createReactHook"))(react)
 
 local oneframe = require(script:WaitForChild("oneframe"))
@@ -31,15 +33,14 @@ local exon = {
     },
 
     api = {
-        auth = require(script:WaitForChild("auth"))
+        auth = require(api:WaitForChild("auth")),
     },
 
     -- Import Stuff
     import = import,
 }
 
-export type exon = typeof(exon)
-
+export type Types = typeof(exon)
 lockTable(exon, "exon", {
     indexMessage = "(%s) is not a valid member of exon!"
 })

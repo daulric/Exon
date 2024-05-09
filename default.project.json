@@ -64,16 +64,22 @@
             }
         },
 
-        "auth": {
-            "$path": "auth/default.project.json",
+        "api": {
+            "$className": "Folder",
 
-            "rednet": {
-                "$path": "rednet/default.project.json"
-            },
+            "auth": {
+                "$path": "api/auth/default.project.json",
 
-            "promise": {
-                "$path": "addons/promise/default.project.json"
+                "rednet": {
+                    "$path": "rednet/default.project.json"
+                },
+    
+                "promise": {
+                    "$path": "addons/promise/default.project.json"
+                }
+               
             }
+
         },
 
         "addons": {
