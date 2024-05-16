@@ -8,8 +8,6 @@ Use `wally install` to install the packages.
 See [wally](https://wally.run/package/daulric/exon) for the latest version!
 [Diagram or Architecture](https://docs.google.com/presentation/d/1sfQDSs2ga9E9zgXeKqocMjErYHgu4VrXU_85nnyz814/edit?usp=sharing)
 
-Download a [Direct Copy](./Exon.rbxm)
-
 The package contains:
 - [React](react/) - a declarative UI Library for creating Roblox GUIs.
 - [OneFrame](oneframe/) - a module for running modular code under one server/client.

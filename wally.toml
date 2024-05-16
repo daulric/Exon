@@ -10,7 +10,8 @@ exclude = [
     ".gitattributes",
     ".gitignore",
     "*.md",
-    "tests"
+    "tests",
+    "*.lock"
 ]
 
 [dependencies]
